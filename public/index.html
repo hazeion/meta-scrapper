@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Scrapper using Puppeteer & Netlify</title>
+</head>
+<body>
+    <main>
+        <h1>Meta Scrapper using Puppeteer & Netlify</h1>
+        <p>Scrape meta data and screenshot from input site using Puppeteer in a Netlify serverless function.</p>
+        
+        <form>
+            <input type="url" id="page" aria-label="URL" value="https://www.google.com">
+            <button type="submit" id="submit">Scrape!</button>
+        </form>
+        <div id="title"></div>
+        <div id="result" aria-live="polite"></div>
+        <div id="description"></div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
