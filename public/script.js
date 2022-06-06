@@ -12,46 +12,53 @@ function bufferToImageUrl(buffer) {
 
 // Takes value in form and assigns it to pageToScreenshot for the fetch POST
 async function clickPost(e) {
+    try {
 
-    document.getElementById('title').innerHTML = "";
-    document.getElementById('description').innerHTML = "";
+        e.preventDefault();
 
-    e.preventDefault();
+        const pageToScreenshot = document.getElementById('page').value;
 
-    const pageToScreenshot = document.getElementById('page').value;
+        if (!pageToScreenshot.includes("https://")) {
+            document.getElementById('result').textContent = "Not valid website.. did you include https:// ?";   
+        }
+
+        let titleDiv = document.getElementById('title');
+        let descripDiv = document.getElementById('description');
+
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+            body: JSON.stringify({ pageToScreenshot: pageToScreenshot })
+
+        }
 
 
-    const options = {
-        method: "POST",
-        headers: { "Content-Type": "application/json; charset=utf-8" },
-        body: JSON.stringify({ pageToScreenshot: pageToScreenshot })
+        document.getElementById('result').textContent = "Please Wait...";
 
-    }
-    document.getElementById('result').textContent = "Please Wait...";
+        // fetch meta information in the form of json
+        const response = await fetch('.netlify/functions/take-screenshot', options);
+        const data = await response.json();
 
-    const response = await fetch('.netlify/functions/take-screenshot', options);
-    const data = await response.json();
-    console.log("this is the buffer " + data)
-    
         // assigns the data from the json to title and page description
-        const titleName = await `<h2>${data.page.title}</h2>`;
+        const titleName =  await data.page.title;
         const pageDescription = await data.page.description;
+
 
         // creates image element and convert / injects buffer to image src.
         const img = document.createElement('img');
         img.src = bufferToImageUrl(data.buffer.data);
 
         //sets the div for the title and the description
-        const titleDiv = document.getElementById('title');
-        const descripDiv = await document.getElementById('description');
 
         // assigns title, image, and description information
-
         titleDiv.innerHTML = titleName;
         document.getElementById('result').innerHTML = img.outerHTML;
-
         descripDiv.innerHTML = pageDescription;
-
+        
+    } catch {
+        console.log(error)
+        document.getElementById('result').textContent = `Error: ${error.toString()}`;
+    }
 }
 
 /* */
