@@ -11,16 +11,14 @@ function bufferToImageUrl(buffer) {
 }
 
 // Takes value in form and assigns it to pageToScreenshot for the fetch POST
-async function clickPost(e) {
+async function clickPost() {
     try {
-
-        e.preventDefault();
 
         const pageToScreenshot = document.getElementById('page').value;
 
-        if (!pageToScreenshot.includes("https://")) {
-            document.getElementById('result').textContent = "Not valid website.. did you include https:// ?";   
-        }
+        if (!pageToScreenshot.includes("https://") && !pageToScreenshot.includes("http://")) {
+            document.getElementById('result').textContent = "Not valid website.. did you include http(s):// ?";   
+        } else {
 
         let titleDiv = document.getElementById('title');
         let descripDiv = document.getElementById('description');
@@ -40,7 +38,10 @@ async function clickPost(e) {
         const data = await response.json();
 
         // assigns the data from the json to title and page description
-        const titleName =  await data.page.title;
+  
+        const titleName =  await data.page.title; 
+        
+        
         const pageDescription = await data.page.description;
 
 
@@ -48,14 +49,14 @@ async function clickPost(e) {
         const img = document.createElement('img');
         img.src = bufferToImageUrl(data.buffer.data);
 
-        //sets the div for the title and the description
 
         // assigns title, image, and description information
         titleDiv.innerHTML = titleName;
         document.getElementById('result').innerHTML = img.outerHTML;
         descripDiv.innerHTML = pageDescription;
+    }
         
-    } catch {
+    } catch(error){
         console.log(error)
         document.getElementById('result').textContent = `Error: ${error.toString()}`;
     }
@@ -63,4 +64,10 @@ async function clickPost(e) {
 
 /* */
 
-document.getElementById('submit').addEventListener("click", clickPost);
+document.getElementById('submit').addEventListener("click", (event) => { 
+    event.preventDefault();
+    document.getElementById('title').innerHTML = "";
+    document.getElementById('description').innerHTML = "";
+    clickPost();
+});
+// document.getElementById('submit').addEventListener("click", clickPost);

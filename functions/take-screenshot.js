@@ -17,7 +17,7 @@ exports.handler = async (event, context) => {
             // headless: chromium.headless,
 
             /* use these when on dev */
-            executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+            executablePath: '//Applications//Google Chrome.app//Contents//MacOS//Google Chrome',
             args: [],
             headless: true,
         });
@@ -30,16 +30,11 @@ exports.handler = async (event, context) => {
             });
 
         await page.goto(pageToScreenshot,  { waitUntil: 'networkidle2' });
-
+        const description = await page.$eval('meta[property="og:description"]', (element) => element.content);
         const screenshot = await page.screenshot();
         const title = await page.title();
         
-
-        // const descriptionCheck = await page.$('.meta');
-        const description = await page.url();
-
         
-
         await browser.close();
 
 
@@ -51,7 +46,7 @@ exports.handler = async (event, context) => {
                 buffer: screenshot,
                 page: {
                     title,
-                    description
+                    description,
                 }
 
             })
