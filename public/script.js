@@ -54,6 +54,7 @@ async function clickPost() {
         titleDiv.innerHTML = titleName;
         document.getElementById('result').innerHTML = img.outerHTML;
         descripDiv.innerHTML = pageDescription;
+
     }
         
     } catch(error){

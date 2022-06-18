@@ -11,15 +11,15 @@ exports.handler = async (event, context) => {
         const browser = await puppeteer.launch({
 
             /* use this when deploying */
-            // executablePath: await chromium.executablePath,
-            // args: chromium.args,
-            // defaultViewport: chromium.defaultViewport,
-            // headless: chromium.headless,
+            executablePath: await chromium.executablePath,
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            headless: chromium.headless,
 
             /* use these when on dev */
-            executablePath: '//Applications//Google Chrome.app//Contents//MacOS//Google Chrome',
-            args: [],
-            headless: true,
+            // executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+            // args: [],
+            // headless: true,
         });
         const page = await browser.newPage();
         
@@ -30,7 +30,14 @@ exports.handler = async (event, context) => {
             });
 
         await page.goto(pageToScreenshot,  { waitUntil: 'networkidle2' });
-        const description = await page.$eval('meta[property="og:description"]', (element) => element.content);
+
+        let description = ""
+
+        if(await page.$('meta[property="og:description"]')) {
+           description = "IT IS HERE"
+        }
+       
+
         const screenshot = await page.screenshot();
         const title = await page.title();
         
