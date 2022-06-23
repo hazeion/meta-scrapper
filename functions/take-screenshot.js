@@ -34,11 +34,11 @@ exports.handler = async (event, context) => {
         
         const title = await page.title();
 
-        if(page.$('head > meta[property="og:description"]')) {
-           const description = await page.$eval('head > meta[property="og:description"]', element => element.content)
-        } else {
-            const description = "";
-        }
+//         if(page.$('head > meta[property="og:description"]')) {
+//            const description = await page.$eval('head > meta[property="og:description"]', element => element.content)
+//         } else {
+//             const description = "";
+//         }
        
         const screenshot = await page.screenshot();
 
@@ -51,7 +51,6 @@ exports.handler = async (event, context) => {
                 message: `Completed screenshot of ${title}`,
                 page: {
                     title,
-                    description,
                 }
                 buffer: screenshot,
             })
