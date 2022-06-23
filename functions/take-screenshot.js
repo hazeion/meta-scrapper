@@ -51,7 +51,7 @@ exports.handler = async (event, context) => {
                 message: `Completed screenshot of ${title}`,
                 page: {
                     title,
-                }
+                },
                 buffer: screenshot,
             })
         }
