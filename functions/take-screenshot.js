@@ -30,12 +30,12 @@ exports.handler = async (event, context) => {
             deviceScaleFactor: .5,
             });
 
-        await page.goto(pageToScreenshot,  { waitUntil: 'networkidle0' });
+        await page.goto(pageToScreenshot,  { waitUntil: 'load' });
         
         const title = await page.title();
         let description = ""
 
-        if(await page.$('head > meta[property="og:description"]')) {
+        if(page.$('head > meta[property="og:description"]')) {
            description = await page.$eval('head > meta[property="og:description"]', element => element.content)
         };
        
@@ -48,11 +48,11 @@ exports.handler = async (event, context) => {
             body: JSON.stringify({
                 status: 'OK',
                 message: `Completed screenshot of ${title}`,
-                buffer: screenshot,
                 page: {
                     title,
                     description,
                 }
+                buffer: screenshot,
             })
         }
         browser.disconnect();
