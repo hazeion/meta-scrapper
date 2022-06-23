@@ -42,8 +42,8 @@ async function clickPost() {
         const titleName =  await data.page.title; 
         
         
-//         const pageDescription = await data.page.description;
-            const pageDescription = "placeholder";
+        const pageDescription = await data.page.description;
+
 
 
         // creates image element and convert / injects buffer to image src.
