@@ -33,11 +33,12 @@ exports.handler = async (event, context) => {
         await page.goto(pageToScreenshot,  { waitUntil: 'load' });
         
         const title = await page.title();
-        let description = ""
 
         if(page.$('head > meta[property="og:description"]')) {
-           description = await page.$eval('head > meta[property="og:description"]', element => element.content)
-        };
+           const description = await page.$eval('head > meta[property="og:description"]', element => element.content)
+        } else {
+            const description = "";
+        }
        
         const screenshot = await page.screenshot();
 
