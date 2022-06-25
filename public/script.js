@@ -41,6 +41,7 @@ async function clickPost() {
   
         const titleName =  await data.page.title; 
         
+        const urlName = await data.page.url;
         
         const pageDescription = await data.page.description;
 
@@ -54,6 +55,8 @@ async function clickPost() {
         titleDiv.innerHTML = titleName;
         document.getElementById('result').innerHTML = img.outerHTML;
         descripDiv.innerHTML = pageDescription;
+
+        titleDiv.appendChild("a")
 
     }
         

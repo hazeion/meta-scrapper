@@ -31,17 +31,18 @@ exports.handler = async (event, context) => {
 
         await page.goto(pageToScreenshot,  { waitUntil: 'networkidle2' });
 
+        const title = await page.title();
+
         let description = ""
 
-        if(await page.$('meta[property="og:description"]')) {
-           description = "IT IS HERE"
-        }
-       
+        const url = await page.url();
 
         const screenshot = await page.screenshot();
-        const title = await page.title();
-        
-        
+
+        if(await page.$('meta[property="og:description"]')) {
+           description = await page.$eval('meta[property="og:description"]', (element) => element.content);
+        } 
+
         await browser.close();
 
 
@@ -54,6 +55,7 @@ exports.handler = async (event, context) => {
                 page: {
                     title,
                     description,
+                    url
                 }
 
             })
