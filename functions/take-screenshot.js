@@ -10,26 +10,27 @@ exports.handler = async (event, context) => {
 
         const browser = await puppeteer.launch({
 
-            /* use this when deploying */
-            executablePath: await chromium.executablePath,
-            args: chromium.args,
-            defaultViewport: chromium.defaultViewport,
-            headless: chromium.headless,
+        /* use this when deploying */
+        executablePath: await chromium.executablePath,
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        headless: chromium.headless,
 
-            /* use these when on dev */
-            // executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
-            // args: [],
-            // headless: true,
+        /* use these when on dev */
+        // executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+        // args: [],
+        // headless: true,
         });
+        
         const page = await browser.newPage();
         
         await page.setViewport({
             width: 800,
             height: 600,
-            deviceScaleFactor: 1,
+            deviceScaleFactor: .5,
             });
 
-        await page.goto(pageToScreenshot,  { waitUntil: 'networkidle2' });
+        await page.goto(pageToScreenshot,  { waitUntil: 'load' });
 
         const title = await page.title();
 
@@ -44,14 +45,12 @@ exports.handler = async (event, context) => {
         } 
 
         await browser.close();
-
-
+        
         return {
             statusCode: 200,
             body: JSON.stringify({
                 status: 'OK',
                 message: `Completed screenshot of ${title}`,
-                buffer: screenshot,
                 page: {
                     title,
                     description,

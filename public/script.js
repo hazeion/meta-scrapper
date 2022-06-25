@@ -46,6 +46,7 @@ async function clickPost() {
         const pageDescription = await data.page.description;
 
 
+
         // creates image element and convert / injects buffer to image src.
         const img = document.createElement('img');
         img.src = bufferToImageUrl(data.buffer.data);
