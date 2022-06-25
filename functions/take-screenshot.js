@@ -27,21 +27,21 @@ exports.handler = async (event, context) => {
         await page.setViewport({
             width: 800,
             height: 600,
-            deviceScaleFactor: .5,
+            deviceScaleFactor: .75,
             });
 
         await page.goto(pageToScreenshot,  { waitUntil: 'load' });
 
         const title = await page.title();
 
-        let description;
+        let description = "";
 
         const url = page.url();
 
         const screenshot = await page.screenshot({encoding: 'binary'});
 
         if(await page.$('meta[property="og:description"]')) {
-           description = await page.$eval('meta[property="og:description"]', (element) => element.content);
+           description = await page.$eval('meta[property="og:description"]', element => element.content);
         } 
 
         await browser.close();
@@ -56,7 +56,7 @@ exports.handler = async (event, context) => {
                     description,
                     url
                 },
-                buffer: screenshot,
+                buffer: screenshot
 
             })
         }

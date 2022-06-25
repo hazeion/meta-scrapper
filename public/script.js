@@ -43,13 +43,13 @@ async function clickPost() {
         
         const urlName = await data.page.url;
         
-        const pageDescription = await data.description;
+        const pageDescription = await data.page.description;
 
 
 
         // creates image element and convert / injects buffer to image src.
         const img = document.createElement('img');
-        img.src = bufferToImageUrl(data.buffer.screenshot);
+        img.src = bufferToImageUrl(data.buffer.data);
 
 
         // assigns title, image, and description information
