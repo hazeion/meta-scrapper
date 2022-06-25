@@ -38,7 +38,7 @@ exports.handler = async (event, context) => {
 
         const url = page.url();
 
-        const screenshot = await page.screenshot();
+        const screenshot = await page.screenshot({encoding: 'binary'});
 
         if(await page.$('meta[property="og:description"]')) {
            description = await page.$eval('meta[property="og:description"]', (element) => element.content);
@@ -55,7 +55,8 @@ exports.handler = async (event, context) => {
                     title,
                     description,
                     url
-                }
+                },
+                buffer: screenshot,
 
             })
         }
