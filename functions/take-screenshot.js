@@ -1,5 +1,7 @@
-const puppeteer = require('puppeteer-core');
 const chromium = require('chrome-aws-lambda');
+const { addExtra } = require('puppeteer-extra')
+const puppeteer = addExtra(chromium.puppeteer)
+
 
 
 exports.handler = async (event, context) => {
