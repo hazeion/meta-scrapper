@@ -34,7 +34,7 @@ exports.handler = async (event, context) => {
 
         const title = await page.title();
 
-        let description = ""
+        let description;
 
         const url = await page.url();
 
