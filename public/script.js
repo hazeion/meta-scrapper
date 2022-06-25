@@ -57,8 +57,6 @@ async function clickPost() {
         document.getElementById('result').innerHTML = img.outerHTML;
         descripDiv.innerHTML = pageDescription;
 
-        titleDiv.appendChild("a")
-
     }
         
     } catch(error){

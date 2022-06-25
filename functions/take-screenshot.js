@@ -36,7 +36,7 @@ exports.handler = async (event, context) => {
 
         let description;
 
-        const url = await page.url();
+        const url = page.url();
 
         const screenshot = await page.screenshot();
 
