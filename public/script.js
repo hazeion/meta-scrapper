@@ -37,13 +37,17 @@ async function clickPost () {
       const urlName = await data.page.url
       const pageDescription = await data.page.description
 
-      // creates image element and convert / injects buffer to image src.
+      // creates image element and convert / injects buffer to image src & assigns the link to the .
+      const a = document.createElement('a')
       const img = document.createElement('img')
+      a.href = await urlName
       img.src = bufferToImageUrl(data.buffer.data)
+      a.appendChild(img)
 
       // assigns title, image, and description information
+
       titleDiv.innerHTML = titleName
-      document.getElementById('result').innerHTML = img.outerHTML
+      document.getElementById('result').innerHTML = a.outerHTML
       descripDiv.innerHTML = pageDescription
     }
   } catch (error) {

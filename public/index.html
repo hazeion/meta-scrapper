@@ -5,20 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meta Scrapper using Puppeteer & Netlify</title>
+    <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
-    <main>
-        <h1>Meta Scrapper using Puppeteer & Netlify</h1>
-        <p>Scrape meta data and screenshot from input site using Puppeteer in a Netlify serverless function.</p>
-        
-        <form>
-            <input type="url" id="page" aria-label="URL" placeholder = "Enter your URL here" value="">
-            <button type="submit" id="submit">Scrape!</button>
-        </form>
-        <div id="title"></div>
-        <div id="result" aria-live="polite"></div>
-        <div id="description"></div>
-    </main>
+        <div class="container">
+            <div class="box title-box">
+                <h1>Meta Scrapper using Puppeteer & Netlify</h1>
+            </div>
+            <div class="explaination-box">
+                <p><h4>Scrape meta data and screenshot from input site using Puppeteer in a Netlify serverless function.  Keep in mind, heavier to load websites may time out this serverless function due to its unpaid nature (IM CHEAP!)</h4></p>
+            </div>
+            <div class="input-box">
+                <form>
+                    <input type="url" class="input-box" id="page" aria-label="URL" placeholder = "Enter your URL here" value="">
+                    <button class="button-35" type="submit" id="submit">Scrape!</button>
+                </form>
+            </div>
+            <div id="title" class="title-result"></div>
+            <div id="result" class="status-box"></div>
+            <div id="description"></div>
+        </div>
     <script src="script.js"></script>
 </body>
 </html>
